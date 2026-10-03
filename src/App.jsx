@@ -3,7 +3,6 @@ import { getCurrentUser, logout as authLogout, updateUser as authUpdateUser } fr
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from './utils/contact';
 import mentorPhoto from '../static/Mentor.png';
 import researcherPhoto from '../static/estudiante 2.jpg';
-import VideoSection from './VideoSection';
 import ArticleSection from './ArticleSection';
 import PlanSection from './PlanSection';
 import LoginSection from './LoginSection';
@@ -178,7 +177,7 @@ function App() {
                       <button type="button" onClick={() => setBookingOpen(true)} className="rounded-3xl bg-white px-5 py-3 text-sm font-semibold text-brand-800 shadow-lg shadow-black/20 transition duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:bg-slate-100 hover:shadow-xl sm:px-6">
                         Agendar Mentoría
                       </button>
-                      <button onClick={() => setView('videos')} className="rounded-3xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-1 hover:bg-white/20 hover:shadow-lg">
+                      <button type="button" className="rounded-3xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-1 hover:bg-white/20 hover:shadow-lg">
                         Ver Metodologías
                       </button>
                     </div>
@@ -372,8 +371,6 @@ function App() {
             <AboutSection />
           ) : view === 'mentorpanel' ? (
             <MentorPanel currentUser={currentUser} onLogout={handleLogout} />
-          ) : view === 'videos' ? (
-            <VideoSection onBack={() => setView('home')} />
           ) : view === 'plans' ? (
             <PlanSection currentUser={currentUser} onSelectPlan={handleSelectPlan} />
           ) : view === 'login' ? (
