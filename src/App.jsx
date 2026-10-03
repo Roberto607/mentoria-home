@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getCurrentUser, logout as authLogout, updateUser as authUpdateUser } from './utils/auth';
-import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from './utils/contact';
+import { CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from './utils/contact';
 import mentorPhoto from '../static/Mentor.png';
 import researcherPhoto from '../static/estudiante 2.jpg';
 import ArticleSection from './ArticleSection';
@@ -350,7 +350,7 @@ function App() {
                         </div>
                         <div className="flex flex-col gap-3">
                           <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-emerald-700 px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-800">WhatsApp <span aria-hidden="true">↗</span></a>
-                          <a href="mailto:asesoriasyesitprotocolos@gmail.com" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-brand-500">Enviar correo <span aria-hidden="true">↗</span></a>
+                          <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:border-brand-500">Enviar correo <span aria-hidden="true">↗</span></a>
                         </div>
                       </div>
                     </aside>
@@ -457,7 +457,7 @@ function App() {
                   </div>
                 </div>
                 <p className="mt-5 text-sm leading-7 text-slate-300">Herramientas y acompañamiento académico para dirigir investigaciones con más claridad y calidad.</p>
-                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=10pfg23n" target="_blank" rel="noreferrer" aria-label="Visitar Instagram" className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-slate-200 transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-white/10 hover:text-white">
+                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=10pfg23n" target="_blank" rel="noreferrer" aria-label="Visitar Instagram" className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 text-red-500 transition hover:-translate-y-1 hover:border-red-400 hover:bg-red-500/10 hover:text-red-400">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
                     <rect x="3" y="3" width="18" height="18" rx="5" />
                     <circle cx="12" cy="12" r="4" />
@@ -479,7 +479,7 @@ function App() {
                 <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-200">Contacto</h2>
                 <div className="mt-4 space-y-3 text-sm">
                   <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="block break-words text-slate-200 transition hover:text-white">WhatsApp · {WHATSAPP_DISPLAY}</a>
-                  <a href="mailto:asesoriasyesitprotocolos@gmail.com" className="block break-all text-slate-200 transition hover:text-white">asesoriasyesitprotocolos@gmail.com</a>
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="block break-all text-slate-200 transition hover:text-white">{CONTACT_EMAIL}</a>
                   <button type="button" onClick={() => setBookingOpen(true)} className="mt-3 inline-flex items-center gap-2 rounded-full bg-cyan-100 px-5 py-3 font-semibold text-brand-900 transition hover:-translate-y-0.5 hover:bg-white">Solicitar mentoría <span aria-hidden="true">↗</span></button>
                 </div>
               </div>

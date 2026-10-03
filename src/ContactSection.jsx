@@ -1,4 +1,4 @@
-import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from './utils/contact';
+import { CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from './utils/contact';
 
 function ContactSection() {
   const handleSubmit = (event) => {
@@ -28,7 +28,7 @@ function ContactSection() {
         <div className="rounded-[28px] border border-slate-200 bg-slate-50 p-6 shadow-sm">
           <h3 className="text-lg font-semibold text-slate-900">Información</h3>
           <div className="mt-5 space-y-4 text-sm text-slate-600">
-            <p><span className="font-semibold text-slate-900">Email:</span> asesoriasyesitprotocolos@gmail.com</p>
+            <p><span className="font-semibold text-slate-900">Email:</span> {CONTACT_EMAIL}</p>
             <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="block transition hover:text-brand-700"><span className="font-semibold text-slate-900">WhatsApp:</span> {WHATSAPP_DISPLAY}</a>
             <p className="text-slate-600">Respondo rápidamente para coordinar mentorías, conferencias y revisiones académicas.</p>
           </div>

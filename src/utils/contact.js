@@ -1,2 +1,3 @@
-export const WHATSAPP_NUMBER = '5356783294';
-export const WHATSAPP_DISPLAY = '+53 5678 3294';
+export const WHATSAPP_NUMBER = '5491153131805';
+export const WHATSAPP_DISPLAY = '+54 9 11 5313 1805';
+export const CONTACT_EMAIL = 'jcvaldesrojas@gmail.com';
