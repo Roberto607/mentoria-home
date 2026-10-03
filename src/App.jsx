@@ -165,17 +165,17 @@ function App() {
           {view === 'home' || view === 'program' ? (
             <>
               {view === 'home' && (
-              <section className="relative overflow-hidden rounded-none bg-slate-950 shadow-soft pt-0">
-                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="relative block h-72 w-full object-cover object-[50%_5%] animate-slide-in-from-right lg:absolute lg:inset-0 lg:h-[calc(100%+2.5rem)] lg:object-[50%_5%]" />
-                <div className="hidden bg-slate-950/20 lg:absolute lg:inset-0 lg:block" />
-                <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] items-center px-6 pb-12 pt-8 sm:px-10 sm:pb-24 sm:pt-28">
-                  <div className="space-y-6 lg:max-w-xl">
+              <section className="relative min-h-[600px] overflow-hidden rounded-none bg-slate-950 shadow-soft sm:min-h-[540px] lg:min-h-[520px]">
+                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="absolute inset-0 h-full w-full object-cover object-[62%_5%] animate-slide-in-from-right sm:object-[55%_5%]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-slate-950/10 sm:bg-gradient-to-r sm:from-slate-950/80 sm:via-slate-950/35 sm:to-transparent" />
+                <div className="relative z-10 flex min-h-[600px] items-end px-5 pb-8 pt-40 sm:min-h-[540px] sm:items-center sm:px-10 sm:py-16 lg:min-h-[520px]">
+                  <div className="w-full space-y-5 sm:max-w-[58%] lg:max-w-xl">
                     <div className="animate-fade-in-up">
-                      <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Mentoría en Investigación Científica</h1>
-                      <p className="mt-4 max-w-2xl text-base text-slate-200 sm:text-lg">Guía tu proyecto de investigación con el Dr. Juan Celestino y transforma tus resultados en conocimiento real.</p>
+                      <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">Mentoría en Investigación Científica</h1>
+                      <p className="mt-3 max-w-2xl text-sm text-slate-200 sm:mt-4 sm:text-base lg:text-lg">Guía tu proyecto de investigación con el Dr. Juan Celestino y transforma tus resultados en conocimiento real.</p>
                     </div>
-                    <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-                      <button type="button" onClick={() => setBookingOpen(true)} className="rounded-3xl bg-white px-6 py-3 text-sm font-semibold text-brand-800 shadow-lg shadow-black/20 transition duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:bg-slate-100 hover:shadow-xl">
+                    <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+                      <button type="button" onClick={() => setBookingOpen(true)} className="rounded-3xl bg-white px-5 py-3 text-sm font-semibold text-brand-800 shadow-lg shadow-black/20 transition duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:bg-slate-100 hover:shadow-xl sm:px-6">
                         Agendar Mentoría
                       </button>
                       <button onClick={() => setView('videos')} className="rounded-3xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-1 hover:bg-white/20 hover:shadow-lg">
