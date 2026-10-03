@@ -457,7 +457,7 @@ function App() {
                   </div>
                 </div>
                 <p className="mt-5 text-sm leading-7 text-slate-300">Herramientas y acompañamiento académico para dirigir investigaciones con más claridad y calidad.</p>
-                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=10pfg23n" target="_blank" rel="noreferrer" aria-label="Visitar Instagram" className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 text-red-500 transition hover:-translate-y-1 hover:border-red-400 hover:bg-red-500/10 hover:text-red-400">
+                <a href="https://www.instagram.com/jcelestinovaldesrojas/" target="_blank" rel="noreferrer" aria-label="Visitar Instagram de @jcelestinovaldesrojas" className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 text-red-500 transition hover:-translate-y-1 hover:border-red-400 hover:bg-red-500/10 hover:text-red-400">
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
                     <rect x="3" y="3" width="18" height="18" rx="5" />
                     <circle cx="12" cy="12" r="4" />
