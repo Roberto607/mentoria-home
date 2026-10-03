@@ -165,14 +165,14 @@ function App() {
           {view === 'home' || view === 'program' ? (
             <>
               {view === 'home' && (
-              <section className="relative overflow-hidden rounded-none shadow-soft pt-0">
-                <img src={mentorPhoto} alt="Mentor" className="absolute inset-0 h-[calc(100%+2.5rem)] w-full object-cover object-[50%_5%] animate-slide-in-from-right" />
-                <div className="absolute inset-0 bg-slate-950/20" />
-                <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] items-center px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28">
+              <section className="relative overflow-hidden rounded-none bg-slate-950 shadow-soft pt-0">
+                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="relative block h-72 w-full object-cover object-[50%_5%] animate-slide-in-from-right sm:absolute sm:inset-0 sm:h-[calc(100%+2.5rem)] sm:object-[50%_5%]" />
+                <div className="hidden bg-slate-950/20 sm:absolute sm:inset-0 sm:block" />
+                <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] items-center px-6 pb-12 pt-8 sm:px-10 sm:pb-24 sm:pt-28">
                   <div className="space-y-6 lg:max-w-xl">
                     <div className="animate-fade-in-up">
                       <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Mentoría en Investigación Científica</h1>
-                      <p className="mt-4 max-w-2xl text-base text-slate-200 sm:text-lg">Guía tu proyecto de investigación con el Dr. Roberto Martinez y transforma tus resultados en conocimiento real.</p>
+                      <p className="mt-4 max-w-2xl text-base text-slate-200 sm:text-lg">Guía tu proyecto de investigación con el Dr. Juan Celestino y transforma tus resultados en conocimiento real.</p>
                     </div>
                     <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
                       <button type="button" onClick={() => setBookingOpen(true)} className="rounded-3xl bg-white px-6 py-3 text-sm font-semibold text-brand-800 shadow-lg shadow-black/20 transition duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:bg-slate-100 hover:shadow-xl">
