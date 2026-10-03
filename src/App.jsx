@@ -166,8 +166,8 @@ function App() {
             <>
               {view === 'home' && (
               <section className="relative overflow-hidden rounded-none bg-slate-950 shadow-soft pt-0">
-                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="relative block h-72 w-full object-cover object-[50%_5%] animate-slide-in-from-right sm:absolute sm:inset-0 sm:h-[calc(100%+2.5rem)] sm:object-[50%_5%]" />
-                <div className="hidden bg-slate-950/20 sm:absolute sm:inset-0 sm:block" />
+                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="relative block h-72 w-full object-cover object-[50%_5%] animate-slide-in-from-right lg:absolute lg:inset-0 lg:h-[calc(100%+2.5rem)] lg:object-[50%_5%]" />
+                <div className="hidden bg-slate-950/20 lg:absolute lg:inset-0 lg:block" />
                 <div className="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_1fr] items-center px-6 pb-12 pt-8 sm:px-10 sm:pb-24 sm:pt-28">
                   <div className="space-y-6 lg:max-w-xl">
                     <div className="animate-fade-in-up">
