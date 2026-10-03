@@ -144,12 +144,18 @@ body::-webkit-scrollbar-thumb,
 }
 
 .program-card {
-  transition: opacity 0.7s ease, transform 0.32s ease, box-shadow 0.32s ease;
+  transition: opacity 0.7s ease, transform 0.38s ease, box-shadow 0.38s ease, border-color 0.38s ease;
 }
 
-.program-card.is-visible:hover {
-  transform: translateY(-4px) scale(1.002);
-  box-shadow: 0 24px 52px -34px rgba(15, 23, 42, 0.38);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .program-card.is-visible:hover,
+  .program-card.is-visible:focus-within {
+    position: relative;
+    z-index: 1;
+    transform: translateY(-8px) scale(1.012);
+    border-color: rgba(14, 116, 144, 0.42);
+    box-shadow: 0 30px 65px -30px rgba(15, 23, 42, 0.55), 0 0 0 1px rgba(14, 116, 144, 0.12);
+  }
 }
 
 .animate-fade-in-up {
