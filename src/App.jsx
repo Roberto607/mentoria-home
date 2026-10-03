@@ -457,6 +457,13 @@ function App() {
                   </div>
                 </div>
                 <p className="mt-5 text-sm leading-7 text-slate-300">Herramientas y acompañamiento académico para dirigir investigaciones con más claridad y calidad.</p>
+                <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=10pfg23n" target="_blank" rel="noreferrer" aria-label="Visitar Instagram" className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-slate-200 transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-white/10 hover:text-white">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+                </a>
               </div>
 
               <div>
@@ -480,13 +487,6 @@ function App() {
 
             <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
               <p>© {new Date().getFullYear()} Mentoría en investigación. Todos los derechos reservados.</p>
-              <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=10pfg23n" target="_blank" rel="noreferrer" aria-label="Visitar Instagram" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-slate-200 transition hover:-translate-y-1 hover:border-cyan-200 hover:bg-white/10 hover:text-white">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-              </a>
               <button type="button" onClick={() => { setView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="w-fit transition hover:text-white">Volver al inicio ↑</button>
             </div>
           </div>
