@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCurrentUser, logout as authLogout, updateUser as authUpdateUser } from './utils/auth';
 import { CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from './utils/contact';
 import mentorPhoto from '../static/Mentor.png';
+import footerPortrait from '../static/foto.png';
 import researcherPhoto from '../static/estudiante 2.jpg';
 import ArticleSection from './ArticleSection';
 import PlanSection from './PlanSection';
@@ -450,7 +451,7 @@ function App() {
             <div className="grid gap-10 md:grid-cols-[1.2fr_0.9fr_1fr] md:gap-12">
               <div className="max-w-md">
                 <div className="flex items-center gap-3">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-cyan-100 text-sm font-bold text-brand-900">JC</span>
+                  <img src={footerPortrait} alt="Dr. Juan Celestino" className="h-11 w-11 rounded-full border border-white/20 object-cover object-[50%_15%]" />
                   <div>
                     <p className="font-semibold text-white">Mentoría en investigación</p>
                     <p className="text-xs text-slate-400">Formación para directores de tesis</p>
