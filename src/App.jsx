@@ -159,7 +159,7 @@ function App() {
 
   return (
     <div className={`min-h-screen ${pageBg} text-slate-900`}>
-      <div className="flex min-h-screen w-full flex-col gap-0 pt-0 pb-6 lg:pt-0 lg:pb-8">
+      <div className="flex min-h-screen w-full flex-col gap-0 pt-0 lg:pt-0">
         <main className="-mt-4 flex-1">
           {view === 'home' || view === 'program' ? (
             <>
