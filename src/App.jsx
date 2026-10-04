@@ -457,13 +457,20 @@ function App() {
                   </div>
                 </div>
                 <p className="mt-5 text-sm leading-7 text-slate-300">Herramientas y acompañamiento académico para dirigir investigaciones con más claridad y calidad.</p>
-                <a href="https://www.instagram.com/jcelestinovaldesrojas/" target="_blank" rel="noreferrer" aria-label="Visitar Instagram de @jcelestinovaldesrojas" className="mt-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 text-red-500 transition hover:-translate-y-1 hover:border-red-400 hover:bg-red-500/10 hover:text-red-400">
-                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
-                    <rect x="3" y="3" width="18" height="18" rx="5" />
-                    <circle cx="12" cy="12" r="4" />
-                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                  </svg>
-                </a>
+                <div className="mt-4 flex gap-3">
+                  <a href="https://www.instagram.com/jcelestinovaldesrojas/" target="_blank" rel="noreferrer" aria-label="Visitar Instagram de @jcelestinovaldesrojas" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 text-red-500 transition hover:-translate-y-1 hover:border-red-400 hover:bg-red-500/10 hover:text-red-400">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                  </a>
+                  <a href="https://www.facebook.com/share/1BhefMTBhi/" target="_blank" rel="noreferrer" aria-label="Visitar Facebook" className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/40 text-blue-500 transition hover:-translate-y-1 hover:border-blue-400 hover:bg-blue-500/10 hover:text-blue-400">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                      <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5V10H7v3h2.8v8h3.7z" />
+                    </svg>
+                  </a>
+                </div>
               </div>
 
               <div>
