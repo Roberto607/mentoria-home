@@ -44,7 +44,7 @@ function GuideChat() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ messages: conversation.slice(1) }),
+        body: JSON.stringify({ messages: conversation }),
       });
       const result = await response.json();
 
