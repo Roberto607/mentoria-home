@@ -32,7 +32,7 @@ function GuideChat() {
     const content = draft.trim();
     if (!content || loading) return;
 
-    const history = messages.filter((_, index) => index > 0);
+    const history = messages.slice(1);
     const nextMessages = [...history, { role: 'user', content }];
     const conversation = nextMessages.slice(-8);
     setMessages([initialMessage, ...conversation]);
@@ -53,7 +53,10 @@ function GuideChat() {
         return;
       }
 
-      setMessages([initialMessage, ...conversation, { role: 'assistant', content: result.answer }].slice(-9));
+      setMessages([
+        initialMessage,
+        ...[...conversation, { role: 'assistant', content: result.answer }].slice(-8),
+      ]);
     } catch (requestError) {
       console.error('No se pudo conectar con la guía virtual:', requestError);
       setError('No se pudo conectar con la guía. Revisa tu conexión e inténtalo de nuevo.');

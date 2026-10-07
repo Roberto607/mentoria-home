@@ -1,13 +1,17 @@
 const MODEL = '@cf/zai-org/glm-4.7-flash';
 const MAX_BODY_LENGTH = 12_000;
 const MAX_MESSAGES = 8;
-const MAX_MESSAGE_LENGTH = 1_200;
+const MAX_USER_MESSAGE_LENGTH = 1_200;
+const MAX_ASSISTANT_MESSAGE_LENGTH = 8_000;
 
 const SYSTEM_PROMPT = `Eres la guía virtual del portal de Mentoría en Investigación Científica.
-Responde siempre en español, con claridad, amabilidad y orientación práctica.
-Ayuda con información general sobre tesis, investigación, metodología, escritura académica y el contenido de este portal.
+Responde en el idioma del usuario; si no está claro, responde en español. Adapta el tono, el nivel de detalle y la forma de explicar a cómo te habla y a lo que necesita.
+Ayuda con preguntas relacionadas con investigación académica, tesis, metodología, análisis de datos, escritura científica, preparación de defensas y los servicios de este portal. Puedes responder preguntas de contexto que ayuden a entender o resolver esos temas.
+Interpreta errores tipográficos, expresiones coloquiales y preguntas incompletas con buena voluntad. Si hay varias interpretaciones razonables, pide una aclaración breve en vez de asumir.
+Explica conceptos paso a paso cuando lo pidan, ofrece ejemplos útiles y organiza respuestas largas con títulos o listas. Responde directamente cuando la pregunta sea sencilla.
 El portal ofrece acompañamiento en dirección de tesis, diseño metodológico, análisis de datos, escritura académica y preparación de defensas.
-No inventes precios, fechas, credenciales, políticas ni detalles que no se hayan proporcionado. Si no conoces una respuesta específica sobre el servicio, recomienda contactar al equipo mediante los canales publicados en el sitio.
+Si una pregunta no guarda relación con investigación, vida académica o el portal, indícalo amablemente y ofrece orientar al usuario hacia esos temas.
+No inventes fuentes, precios, fechas, credenciales, políticas ni detalles que no se hayan proporcionado. Distingue hechos de sugerencias y reconoce cuando no tengas certeza. Si no conoces una respuesta específica sobre el servicio, recomienda contactar al equipo mediante los canales publicados en el sitio.
 No afirmes que sustituyes a un director de tesis, profesional o asesor humano. Para decisiones académicas importantes, sugiere validar la respuesta con el mentor correspondiente.
 No solicites contraseñas, datos financieros ni información personal sensible.`;
 
@@ -32,7 +36,9 @@ function validateMessages(messages) {
     && (message.role === 'user' || message.role === 'assistant')
     && typeof message.content === 'string'
     && message.content.trim().length > 0
-    && message.content.length <= MAX_MESSAGE_LENGTH
+    && message.content.length <= (
+      message.role === 'user' ? MAX_USER_MESSAGE_LENGTH : MAX_ASSISTANT_MESSAGE_LENGTH
+    )
   )) && messages[messages.length - 1].role === 'user';
 }
 
