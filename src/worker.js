@@ -56,7 +56,10 @@ function getResponseShape(result) {
     firstChoiceKeys: firstChoice && typeof firstChoice === 'object' ? Object.keys(firstChoice) : [],
     messageKeys: message && typeof message === 'object' ? Object.keys(message) : [],
     contentType: typeof message?.content,
+    contentIsNull: message?.content === null,
     finishReason: firstChoice?.finish_reason ?? null,
+    completionTokens: result?.usage?.completion_tokens ?? null,
+    reasoningTokens: result?.usage?.completion_tokens_details?.reasoning_tokens ?? null,
   };
 }
 
@@ -128,7 +131,7 @@ export default {
           { role: 'system', content: SYSTEM_PROMPT },
           ...body.messages,
         ],
-        max_tokens: 512,
+        max_completion_tokens: 2048,
       });
       const answer = getAssistantText(result);
 
