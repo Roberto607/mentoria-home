@@ -45,6 +45,21 @@ function getAssistantText(result) {
   return typeof content === 'string' ? content.trim() : '';
 }
 
+function getResponseShape(result) {
+  const firstChoice = result?.choices?.[0];
+  const message = firstChoice?.message;
+
+  return {
+    topLevelKeys: result && typeof result === 'object' ? Object.keys(result) : [],
+    responseType: typeof result?.response,
+    choiceCount: Array.isArray(result?.choices) ? result.choices.length : null,
+    firstChoiceKeys: firstChoice && typeof firstChoice === 'object' ? Object.keys(firstChoice) : [],
+    messageKeys: message && typeof message === 'object' ? Object.keys(message) : [],
+    contentType: typeof message?.content,
+    finishReason: firstChoice?.finish_reason ?? null,
+  };
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -118,9 +133,9 @@ export default {
       const answer = getAssistantText(result);
 
       if (!answer) {
-        console.error('Workers AI devolvió una respuesta vacía o con formato inesperado.', {
-          resultKeys: result && typeof result === 'object' ? Object.keys(result) : [],
-        });
+        console.error(
+          `Workers AI devolvió una respuesta vacía o con formato inesperado: ${JSON.stringify(getResponseShape(result))}`,
+        );
         return jsonResponse({ error: 'La guía no pudo generar una respuesta. Intenta de nuevo.' }, 502);
       }
 
