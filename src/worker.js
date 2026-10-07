@@ -50,17 +50,6 @@ function validateMessages(messages) {
   )) && messages[messages.length - 1].role === 'user';
 }
 
-function getAssistantText(result) {
-  const cleanText = (text) => text.replace(/<\/?response>/gi, '').trim();
-
-  if (typeof result?.response === 'string') {
-    return cleanText(result.response);
-  }
-
-  const content = result?.choices?.[0]?.message?.content;
-  return typeof content === 'string' ? cleanText(content) : '';
-}
-
 function getResponseShape(result) {
   const firstChoice = result?.choices?.[0];
   const message = firstChoice?.message;
@@ -76,6 +65,45 @@ function getResponseShape(result) {
     finishReason: firstChoice?.finish_reason ?? null,
     completionTokens: result?.usage?.completion_tokens ?? null,
     reasoningTokens: result?.usage?.completion_tokens_details?.reasoning_tokens ?? null,
+  };
+}
+
+function streamEvent(type, value) {
+  return `data: ${JSON.stringify({ type, ...value })}\n\n`;
+}
+
+function getStreamText(payload) {
+  if (typeof payload?.response === 'string') {
+    return payload.response;
+  }
+
+  const choice = payload?.choices?.[0];
+  const content = choice?.delta?.content ?? choice?.message?.content;
+  return typeof content === 'string' ? content : '';
+}
+
+function createResponseTextFilter() {
+  let pending = '';
+  const tagPrefixes = ['<response>', '</response>'];
+
+  return (text, flush = false) => {
+    const cleaned = `${pending}${text}`.replace(/<\/?response>/gi, '');
+    pending = '';
+
+    if (flush) {
+      return cleaned;
+    }
+
+    const lower = cleaned.toLowerCase();
+    for (let length = Math.min(cleaned.length, 10); length > 0; length -= 1) {
+      const suffix = lower.slice(-length);
+      if (tagPrefixes.some((tag) => tag.startsWith(suffix))) {
+        pending = cleaned.slice(-length);
+        return cleaned.slice(0, -length);
+      }
+    }
+
+    return cleaned;
   };
 }
 
@@ -148,17 +176,105 @@ export default {
           ...body.messages,
         ],
         max_completion_tokens: 2048,
+        stream: true,
       });
-      const answer = getAssistantText(result);
-
-      if (!answer) {
+      if (!(result instanceof ReadableStream)) {
         console.error(
-          `Workers AI devolvió una respuesta vacía o con formato inesperado: ${JSON.stringify(getResponseShape(result))}`,
+          `Workers AI devolvió un stream con formato inesperado: ${JSON.stringify(getResponseShape(result))}`,
         );
         return jsonResponse({ error: 'La guía no pudo generar una respuesta. Intenta de nuevo.' }, 502);
       }
 
-      return jsonResponse({ answer });
+      const encoder = new TextEncoder();
+      let streamReader;
+      let streamCancelled = false;
+      const responseStream = new ReadableStream({
+        start(controller) {
+          streamReader = result.getReader();
+          const decoder = new TextDecoder();
+          const filterText = createResponseTextFilter();
+          let buffer = '';
+          let hasText = false;
+
+          const sendText = (text) => {
+            const filteredText = filterText(text);
+            if (filteredText) {
+              hasText = true;
+              controller.enqueue(encoder.encode(streamEvent('delta', { content: filteredText })));
+            }
+          };
+
+          const processEvent = (event) => {
+            const data = event
+              .split('\n')
+              .filter((line) => line.startsWith('data:'))
+              .map((line) => line.slice(5).trimStart())
+              .join('\n');
+            if (!data || data === '[DONE]') return;
+
+            try {
+              sendText(getStreamText(JSON.parse(data)));
+            } catch (error) {
+              console.error('Workers AI devolvió un evento de stream inválido:', error);
+            }
+          };
+
+          const readStream = async () => {
+            try {
+              while (true) {
+                const { done, value } = await streamReader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n');
+
+                let eventBoundary = buffer.indexOf('\n\n');
+                while (eventBoundary !== -1) {
+                  processEvent(buffer.slice(0, eventBoundary));
+                  buffer = buffer.slice(eventBoundary + 2);
+                  eventBoundary = buffer.indexOf('\n\n');
+                }
+              }
+
+              buffer += decoder.decode();
+              if (buffer.trim()) processEvent(buffer);
+              const remainingText = filterText('', true);
+              if (remainingText) {
+                hasText = true;
+                controller.enqueue(encoder.encode(streamEvent('delta', { content: remainingText })));
+              }
+              if (!hasText) {
+                controller.enqueue(encoder.encode(streamEvent('error', {
+                  error: 'La guía no pudo generar una respuesta. Intenta de nuevo.',
+                })));
+              } else {
+                controller.enqueue(encoder.encode(streamEvent('done', {})));
+              }
+              controller.close();
+            } catch (error) {
+              if (!streamCancelled) {
+                console.error('Workers AI stream failed:', error);
+                controller.enqueue(encoder.encode(streamEvent('error', {
+                  error: 'La guía no está disponible por el momento. Intenta de nuevo más tarde.',
+                })));
+                controller.close();
+              }
+            }
+          };
+
+          readStream();
+        },
+        cancel(reason) {
+          streamCancelled = true;
+          return streamReader?.cancel(reason);
+        },
+      });
+
+      return new Response(responseStream, {
+        headers: {
+          'content-type': 'text/event-stream; charset=utf-8',
+          'cache-control': 'no-cache, no-transform',
+          'x-content-type-options': 'nosniff',
+        },
+      });
     } catch (error) {
       console.error('Workers AI request failed:', error);
       return jsonResponse({

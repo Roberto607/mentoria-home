@@ -46,17 +46,74 @@ function GuideChat() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ messages: conversation }),
       });
-      const result = await response.json();
 
       if (!response.ok) {
+        const result = await response.json();
         setError(result.error || 'No se pudo obtener una respuesta. Intenta de nuevo.');
         return;
       }
 
-      setMessages([
-        initialMessage,
-        ...[...conversation, { role: 'assistant', content: result.answer }].slice(-8),
-      ]);
+      if (response.headers.get('content-type')?.includes('text/event-stream')) {
+        if (!response.body) {
+          throw new Error('La respuesta en streaming no está disponible.');
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let streamedAnswer = '';
+        let streamError = '';
+
+        const processEvent = (frame) => {
+          const data = frame
+            .split('\n')
+            .filter((line) => line.startsWith('data:'))
+            .map((line) => line.slice(5).trimStart())
+            .join('\n');
+          if (!data) return;
+
+          const event = JSON.parse(data);
+          if (event.type === 'delta' && typeof event.content === 'string') {
+            streamedAnswer += event.content;
+            setMessages([
+              initialMessage,
+              ...[...conversation, { role: 'assistant', content: streamedAnswer }].slice(-8),
+            ]);
+          } else if (event.type === 'error') {
+            streamError = event.error || 'No se pudo obtener una respuesta. Intenta de nuevo.';
+          }
+        };
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n');
+
+          let eventBoundary = buffer.indexOf('\n\n');
+          while (eventBoundary !== -1) {
+            processEvent(buffer.slice(0, eventBoundary));
+            buffer = buffer.slice(eventBoundary + 2);
+            eventBoundary = buffer.indexOf('\n\n');
+          }
+        }
+
+        buffer += decoder.decode();
+        if (buffer.trim()) processEvent(buffer);
+
+        if (streamError) {
+          if (!streamedAnswer) setMessages([initialMessage, ...conversation]);
+          setError(streamError);
+        } else if (!streamedAnswer) {
+          setMessages([initialMessage, ...conversation]);
+          setError('La guía no pudo generar una respuesta. Intenta de nuevo.');
+        }
+      } else {
+        const result = await response.json();
+        setMessages([
+          initialMessage,
+          ...[...conversation, { role: 'assistant', content: result.answer }].slice(-8),
+        ]);
+      }
     } catch (requestError) {
       console.error('No se pudo conectar con la guía virtual:', requestError);
       setError('No se pudo conectar con la guía. Revisa tu conexión e inténtalo de nuevo.');
@@ -104,7 +161,7 @@ function GuideChat() {
             ))}
             {loading && (
               <p role="status" className="mr-auto rounded-2xl rounded-bl-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-500">
-                La guía está preparando una respuesta…
+                La guía está escribiendo…
               </p>
             )}
           </div>
