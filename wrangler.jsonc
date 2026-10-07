@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "Mentoria-home",
+  "name": "mentoria-home",
   "main": "./src/worker.js",
   "compatibility_date": "2026-10-05",
   "ai": {
