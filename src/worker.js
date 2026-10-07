@@ -36,6 +36,15 @@ function validateMessages(messages) {
   )) && messages[messages.length - 1].role === 'user';
 }
 
+function getAssistantText(result) {
+  if (typeof result?.response === 'string') {
+    return result.response.trim();
+  }
+
+  const content = result?.choices?.[0]?.message?.content;
+  return typeof content === 'string' ? content.trim() : '';
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -106,13 +115,16 @@ export default {
         ],
         max_tokens: 512,
       });
+      const answer = getAssistantText(result);
 
-      if (typeof result?.response !== 'string' || result.response.trim().length === 0) {
-        console.error('Workers AI devolvió una respuesta vacía o con formato inesperado.');
+      if (!answer) {
+        console.error('Workers AI devolvió una respuesta vacía o con formato inesperado.', {
+          resultKeys: result && typeof result === 'object' ? Object.keys(result) : [],
+        });
         return jsonResponse({ error: 'La guía no pudo generar una respuesta. Intenta de nuevo.' }, 502);
       }
 
-      return jsonResponse({ answer: result.response.trim() });
+      return jsonResponse({ answer });
     } catch (error) {
       console.error('Workers AI request failed:', error);
       return jsonResponse({
