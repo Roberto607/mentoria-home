@@ -1,4 +1,4 @@
-const MODEL = '@cf/swiss-ai/apertus-v1.5-8b';
+const MODEL = '@cf/zai-org/glm-4.7-flash';
 const MAX_BODY_LENGTH = 12_000;
 const MAX_MESSAGES = 8;
 const MAX_MESSAGE_LENGTH = 1_200;
