@@ -51,12 +51,14 @@ function validateMessages(messages) {
 }
 
 function getAssistantText(result) {
+  const cleanText = (text) => text.replace(/<\/?response>/gi, '').trim();
+
   if (typeof result?.response === 'string') {
-    return result.response.trim();
+    return cleanText(result.response);
   }
 
   const content = result?.choices?.[0]?.message?.content;
-  return typeof content === 'string' ? content.trim() : '';
+  return typeof content === 'string' ? cleanText(content) : '';
 }
 
 function getResponseShape(result) {
