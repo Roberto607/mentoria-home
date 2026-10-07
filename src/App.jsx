@@ -14,6 +14,7 @@ import ContactSection from './ContactSection';
 import BlogSection from './BlogSection';
 import UserPanel from './components/UserPanel/UserPanel';
 import MentorPanel from './components/MentorPanel/MentorPanel';
+import GuideChat from './components/GuideChat';
 // ProfileSection removed — profile components cleaned up
 
 const courseModules = [
@@ -501,6 +502,7 @@ function App() {
         </footer>
         )}
       </div>
+      {!['login', 'register', 'userpanel', 'profile', 'mentorpanel', 'dashboard'].includes(view) && <GuideChat />}
     </div>
   );
 }
