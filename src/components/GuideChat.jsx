@@ -123,15 +123,15 @@ function GuideChat() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-4 right-4 z-50 sm:bottom-6 sm:right-6">
       {open && (
         <section
           aria-labelledby="guide-chat-title"
-          className="mb-3 flex h-[calc(100dvh-7rem)] max-h-[600px] w-[calc(100vw-2.5rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+          className="mb-3 flex h-[min(30rem,calc(100dvh-8rem))] max-h-[30rem] w-[calc(100vw-2rem)] max-w-[19rem] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl sm:h-[min(38rem,calc(100dvh-7rem))] sm:max-h-[600px] sm:w-[calc(100vw-2.5rem)] sm:max-w-sm"
         >
-          <header className="flex items-center justify-between gap-4 bg-[#0b3760] px-5 py-4 text-white">
+          <header className="flex items-center justify-between gap-3 bg-[#0b3760] px-4 py-3.5 text-white sm:gap-4 sm:px-5 sm:py-4">
             <div>
-              <h2 id="guide-chat-title" className="font-semibold">Guía de investigación</h2>
+              <h2 id="guide-chat-title" className="text-sm font-semibold sm:text-base">Guía de investigación</h2>
               <p className="mt-1 text-xs text-blue-100">Asistente virtual · respuestas con IA</p>
             </div>
             <button
@@ -146,11 +146,11 @@ function GuideChat() {
             </button>
           </header>
 
-          <div ref={conversationRef} aria-live="polite" className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-4">
+          <div ref={conversationRef} aria-live="polite" className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-3 sm:p-4">
             {messages.map((message, index) => (
               <p
                 key={`${message.role}-${index}`}
-                className={`max-w-[90%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-6 ${
+                className={`max-w-[90%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-6 sm:px-4 sm:py-3 ${
                   message.role === 'user'
                     ? 'ml-auto rounded-br-md bg-brand-700 text-white'
                     : 'mr-auto rounded-bl-md border border-slate-200 bg-white text-slate-800'
@@ -166,7 +166,7 @@ function GuideChat() {
             )}
           </div>
 
-          <div className="border-t border-slate-200 bg-white p-4">
+          <div className="border-t border-slate-200 bg-white p-3 sm:p-4">
             {error && <p role="alert" className="mb-3 text-sm text-red-700">{error}</p>}
             <form onSubmit={sendMessage} className="flex items-end gap-2">
               <label className="sr-only" htmlFor="guide-chat-input">Escribe tu pregunta</label>
@@ -208,12 +208,20 @@ function GuideChat() {
         onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
         aria-controls="guide-chat-title"
-        className="ml-auto flex min-h-12 items-center gap-2 rounded-full bg-brand-700 px-5 py-3 font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-brand-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
+        aria-label={open ? 'Cerrar guía virtual' : 'Abrir guía virtual'}
+        className="group relative ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#0b3760] via-brand-700 to-blue-500 text-white shadow-xl shadow-brand-900/30 ring-1 ring-white/70 transition duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:shadow-brand-900/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-700 sm:h-auto sm:min-h-12 sm:w-auto sm:gap-2.5 sm:px-5 sm:py-3"
       >
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5m-8 6 1.7-3.4A8 8 0 1 1 20 14.5L21 19l-4.5-1A8 8 0 0 1 5 20Z" />
-        </svg>
-        {open ? 'Cerrar guía' : 'Guía IA'}
+        <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/20 transition group-hover:bg-white/20">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-5 w-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h8M8 14h5m-8 6 1.7-3.4A8 8 0 1 1 20 14.5L21 19l-4.5-1A8 8 0 0 1 5 20Z" />
+          </svg>
+          <svg aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" className="absolute -right-1 -top-1 h-3.5 w-3.5 text-amber-200 drop-shadow">
+            <path d="m8 0 1.55 5.02L14.5 6.5l-4.95 1.48L8 13l-1.55-5.02L1.5 6.5l4.95-1.48L8 0Z" />
+            <circle cx="13.5" cy="13.5" r="1.5" />
+          </svg>
+        </span>
+        <span className="hidden text-sm font-semibold sm:inline">{open ? 'Cerrar guía' : 'Guía IA'}</span>
+        <span className="sr-only sm:hidden">{open ? 'Cerrar guía' : 'Guía IA'}</span>
       </button>
     </div>
   );
