@@ -35,13 +35,13 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
   };
 
   return (
-    <div className="relative isolate flex min-h-screen items-center justify-center bg-blue-50 px-4 py-6 lg:justify-start lg:overflow-hidden lg:bg-[#176bc1] lg:px-[6vw] lg:py-8">
+    <div className="relative isolate flex min-h-screen items-center justify-center bg-blue-50 px-4 py-6 lg:justify-start lg:bg-[#176bc1] lg:px-[6vw] lg:py-8">
       <img
         src={mentorPhoto}
         alt="Dr. Juan Celestino, mentor en investigación científica"
-        className="absolute inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
+        className="fixed inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
       />
-      <div className="absolute inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
+      <div className="fixed inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
       <section className="auth-form-enter relative z-10 w-full max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:px-10 sm:py-10 lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
         <div className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-600">Crear cuenta</p>
