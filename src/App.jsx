@@ -244,6 +244,7 @@ function App() {
             id="mobile-primary-navigation"
             aria-label="Navegación principal"
             aria-hidden={!mobileNavOpen}
+            style={{ backgroundColor: '#ffffff' }}
             className={`fixed bottom-0 right-0 top-16 z-50 w-[min(20rem,calc(100vw-3rem))] border-l border-slate-200 bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
               mobileNavOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
@@ -254,7 +255,7 @@ function App() {
                     key={item.label}
                     type="button"
                     onClick={item.onClick}
-                    className="rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800"
+                    className="rounded-xl bg-white px-4 py-3 text-left text-sm font-semibold text-slate-800 transition hover:bg-brand-50 hover:text-brand-800"
                   >
                     {item.label}
                   </button>
