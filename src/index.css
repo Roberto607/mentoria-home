@@ -124,6 +124,36 @@ body::-webkit-scrollbar-thumb,
   }
 }
 
+@keyframes authFormEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes authFieldEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-form-enter {
+  animation: authFormEnter 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.auth-field-enter {
+  animation: authFieldEnter 0.4s ease-out both;
+}
+
 .program-section-enter {
   animation: programSectionEnter 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -174,6 +204,17 @@ body::-webkit-scrollbar-thumb,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .auth-form-enter,
+  .auth-field-enter,
+  .animate-fade-in-up,
+  .animate-fade-in-left,
+  .animate-slide-in-from-right {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none;
+  }
+
   .program-section-enter {
     animation: none;
   }

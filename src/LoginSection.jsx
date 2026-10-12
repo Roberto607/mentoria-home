@@ -27,7 +27,7 @@ function LoginSection({ onLoginSuccess, onRegisterClick }) {
         className="absolute inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
       />
       <div className="absolute inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
-      <div className="relative h-[34vh] min-h-56 max-h-80 overflow-hidden bg-[#176bc1] lg:hidden">
+      <div className="relative h-40 overflow-hidden bg-[#176bc1] sm:h-44 lg:hidden">
         <img
           src={mentorPhoto}
           alt="Dr. Juan Celestino, mentor en investigación científica"
@@ -35,7 +35,7 @@ function LoginSection({ onLoginSuccess, onRegisterClick }) {
         />
       </div>
 
-      <section className="relative z-10 mx-4 my-6 w-[calc(100%-2rem)] max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:mx-8 sm:w-[calc(100%-4rem)] sm:px-10 sm:py-10 lg:mx-0 lg:my-0 lg:w-full lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
+      <section className="auth-form-enter relative z-10 mx-4 my-5 w-[calc(100%-2rem)] max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:mx-8 sm:w-[calc(100%-4rem)] sm:px-10 sm:py-10 lg:mx-0 lg:my-0 lg:w-full lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
         <div className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-600">Iniciar Sesión</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Bienvenido de nuevo</h2>
@@ -44,7 +44,7 @@ function LoginSection({ onLoginSuccess, onRegisterClick }) {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {error && <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
-          <div>
+          <div className="auth-field-enter">
             <label className="mb-2 block text-sm font-semibold text-slate-800">Correo electrónico</label>
             <input
               type="email"
@@ -55,7 +55,7 @@ function LoginSection({ onLoginSuccess, onRegisterClick }) {
               required
             />
           </div>
-          <div>
+          <div className="auth-field-enter" style={{ animationDelay: '100ms' }}>
             <label className="mb-2 block text-sm font-semibold text-slate-800">Contraseña</label>
             <input
               type="password"
@@ -66,7 +66,7 @@ function LoginSection({ onLoginSuccess, onRegisterClick }) {
               required
             />
           </div>
-          <button type="submit" className="inline-flex w-full items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700">
+          <button type="submit" className="auth-field-enter inline-flex w-full items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700" style={{ animationDelay: '200ms' }}>
             Iniciar Sesión
           </button>
         </form>

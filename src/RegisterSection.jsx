@@ -42,7 +42,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
         className="absolute inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
       />
       <div className="absolute inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
-      <div className="relative h-[34vh] min-h-56 max-h-80 overflow-hidden bg-[#176bc1] lg:hidden">
+      <div className="relative h-40 overflow-hidden bg-[#176bc1] sm:h-44 lg:hidden">
         <img
           src={mentorPhoto}
           alt="Dr. Juan Celestino, mentor en investigación científica"
@@ -50,7 +50,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
         />
       </div>
 
-      <section className="relative z-10 mx-4 my-6 w-[calc(100%-2rem)] max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:mx-8 sm:w-[calc(100%-4rem)] sm:px-10 sm:py-10 lg:mx-0 lg:my-0 lg:w-full lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
+      <section className="auth-form-enter relative z-10 mx-4 my-5 w-[calc(100%-2rem)] max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:mx-8 sm:w-[calc(100%-4rem)] sm:px-10 sm:py-10 lg:mx-0 lg:my-0 lg:w-full lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
         <div className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-600">Crear cuenta</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Crea tu cuenta</h2>
@@ -60,7 +60,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {error && <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}
           {success && <p className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">{success}</p>}
-          <div>
+          <div className="auth-field-enter">
             <label className="mb-2 block text-sm font-semibold text-slate-800">Nombre completo</label>
             <input
               type="text"
@@ -71,7 +71,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
               required
             />
           </div>
-          <div>
+          <div className="auth-field-enter" style={{ animationDelay: '75ms' }}>
             <label className="mb-2 block text-sm font-semibold text-slate-800">Correo electrónico</label>
             <input
               type="email"
@@ -82,7 +82,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
               required
             />
           </div>
-          <div>
+          <div className="auth-field-enter" style={{ animationDelay: '150ms' }}>
             <label className="mb-2 block text-sm font-semibold text-slate-800">Contraseña</label>
             <input
               type="password"
@@ -93,7 +93,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
               required
             />
           </div>
-          <div>
+          <div className="auth-field-enter" style={{ animationDelay: '225ms' }}>
             <label className="mb-2 block text-sm font-semibold text-slate-800">Confirmar contraseña</label>
             <input
               type="password"
@@ -104,7 +104,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
               required
             />
           </div>
-          <button type="submit" className="inline-flex w-full items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700">
+          <button type="submit" className="auth-field-enter inline-flex w-full items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-700" style={{ animationDelay: '300ms' }}>
             Crear cuenta
           </button>
         </form>
