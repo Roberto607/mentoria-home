@@ -249,7 +249,7 @@ function App() {
             aria-label="Navegación principal"
             aria-hidden={!mobileNavOpen}
             style={{ backgroundColor: '#ffffff', backgroundImage: 'none', opacity: 1 }}
-            className={`fixed bottom-0 right-0 top-16 z-50 w-[min(20rem,calc(100vw-3rem))] border-l border-slate-200 !bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+            className={`fixed right-0 top-16 z-50 max-h-[calc(100dvh-5rem)] w-[min(20rem,calc(100vw-3rem))] overflow-y-auto border-l border-slate-200 !bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
               mobileNavOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
@@ -264,13 +264,22 @@ function App() {
                   {item.label}
                 </button>
               ))}
-              <button
-                type="button"
-                onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
-                className="mt-2 rounded-xl bg-brand-700 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-brand-800"
-              >
-                Agendar mentoría
-              </button>
+              <div className="mt-2 grid grid-cols-2 gap-2 border-t border-slate-200 pt-3">
+                <button
+                  type="button"
+                  onClick={() => navigateFromNav('login')}
+                  className="rounded-xl border border-brand-700 px-3 py-3 text-center text-sm font-semibold text-brand-800 transition hover:bg-brand-50"
+                >
+                  Iniciar sesión
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigateFromNav('register')}
+                  className="rounded-xl bg-brand-700 px-3 py-3 text-center text-sm font-semibold text-white transition hover:bg-brand-800"
+                >
+                  Registrarse
+                </button>
+              </div>
             </div>
           </nav>
         </>
