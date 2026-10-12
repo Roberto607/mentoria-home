@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { addUser, setCurrentUser, findUserByEmail } from './utils/auth';
-import mentorPhoto from '../static/Mentor.png';
+import mentorBackground from '../static/Mentor-background.jpg';
 
 function RegisterSection({ onRegisterSuccess, onLoginClick }) {
   const [name, setName] = useState('');
@@ -37,7 +37,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
   return (
     <div className="relative isolate flex min-h-screen items-center justify-center bg-blue-50 px-4 py-6 lg:justify-start lg:bg-[#176bc1] lg:px-[6vw] lg:py-8">
       <img
-        src={mentorPhoto}
+        src={mentorBackground}
         alt="Dr. Juan Celestino, mentor en investigación científica"
         className="fixed inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
       />
