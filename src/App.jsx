@@ -193,13 +193,13 @@ function App() {
               </span>
             </button>
 
-            <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-0.5 lg:flex">
+            <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-2 xl:gap-3 lg:flex">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   type="button"
                   onClick={item.onClick}
-                  className="whitespace-nowrap rounded-full px-2 py-2 text-sm font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800 xl:px-3 xl:text-base"
+                  className="whitespace-nowrap rounded-full px-3 py-2 text-base font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800 xl:px-4 xl:text-lg"
                 >
                   {item.label}
                 </button>
