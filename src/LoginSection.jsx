@@ -20,15 +20,22 @@ function LoginSection({ onLoginSuccess, onRegisterClick }) {
   };
 
   return (
-    <div className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-[#176bc1] px-4 py-8 sm:px-8 lg:justify-start lg:px-[6vw]">
+    <div className="relative isolate min-h-screen bg-blue-50 lg:flex lg:items-center lg:justify-start lg:overflow-hidden lg:bg-[#176bc1] lg:px-[6vw] lg:py-8">
       <img
         src={mentorPhoto}
         alt="Dr. Juan Celestino, mentor en investigación científica"
-        className="fixed inset-0 -z-20 h-full w-full object-contain object-center"
+        className="absolute inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
       />
-      <div className="fixed inset-0 -z-10 bg-slate-950/5" />
+      <div className="absolute inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
+      <div className="relative h-[34vh] min-h-56 max-h-80 overflow-hidden bg-[#176bc1] lg:hidden">
+        <img
+          src={mentorPhoto}
+          alt="Dr. Juan Celestino, mentor en investigación científica"
+          className="h-full w-full object-cover object-[70%_25%]"
+        />
+      </div>
 
-      <section className="w-full max-w-xl rounded-[28px] bg-white/95 px-6 py-8 shadow-2xl shadow-slate-950/15 backdrop-blur-sm sm:px-10 sm:py-10 lg:px-10 xl:px-12">
+      <section className="relative z-10 mx-4 my-6 w-[calc(100%-2rem)] max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:mx-8 sm:w-[calc(100%-4rem)] sm:px-10 sm:py-10 lg:mx-0 lg:my-0 lg:w-full lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
         <div className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-600">Iniciar Sesión</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Bienvenido de nuevo</h2>
