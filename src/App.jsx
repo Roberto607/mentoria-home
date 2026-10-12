@@ -204,7 +204,7 @@ function App() {
                   {item.label}
                 </button>
               ))}
-              <div className="flex gap-2">
+              <div className="ml-5 flex shrink-0 gap-3 xl:ml-10 xl:gap-4">
                 <button
                   type="button"
                   onClick={() => navigateFromNav('login')}
