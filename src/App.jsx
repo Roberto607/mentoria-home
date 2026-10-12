@@ -233,9 +233,22 @@ function App() {
             </div>
           </div>
 
-          {mobileNavOpen && (
-            <nav id="mobile-primary-navigation" aria-label="Navegación principal" className="border-t border-slate-200 bg-white px-4 py-3 shadow-lg lg:hidden">
-              <div className="mx-auto grid max-w-7xl gap-1 sm:grid-cols-2">
+          <div
+            aria-hidden={!mobileNavOpen}
+            onClick={() => setMobileNavOpen(false)}
+            className={`fixed inset-x-0 bottom-0 top-16 z-40 bg-slate-950/35 transition-opacity duration-200 lg:hidden ${
+              mobileNavOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+            }`}
+          />
+          <nav
+            id="mobile-primary-navigation"
+            aria-label="Navegación principal"
+            aria-hidden={!mobileNavOpen}
+            className={`fixed bottom-0 right-0 top-16 z-50 w-[min(20rem,calc(100vw-3rem))] border-l border-slate-200 bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+              mobileNavOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
+              <div className="grid gap-1">
                 {navItems.map((item) => (
                   <button
                     key={item.label}
@@ -249,13 +262,12 @@ function App() {
                 <button
                   type="button"
                   onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
-                  className="mt-1 rounded-xl bg-brand-700 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-brand-800 sm:col-span-2"
+                  className="mt-2 rounded-xl bg-brand-700 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-brand-800"
                 >
                   Agendar mentoría
                 </button>
               </div>
-            </nav>
-          )}
+          </nav>
         </header>
       )}
       <div className="flex min-h-screen w-full flex-col gap-0 pt-0 lg:pt-0">
