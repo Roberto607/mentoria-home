@@ -233,6 +233,10 @@ function App() {
             </div>
           </div>
 
+        </header>
+      )}
+      {!['login', 'register', 'userpanel', 'profile', 'mentorpanel', 'dashboard'].includes(view) && (
+        <>
           <div
             aria-hidden={!mobileNavOpen}
             onClick={() => setMobileNavOpen(false)}
@@ -244,32 +248,32 @@ function App() {
             id="mobile-primary-navigation"
             aria-label="Navegación principal"
             aria-hidden={!mobileNavOpen}
-            style={{ backgroundColor: '#ffffff' }}
-            className={`fixed bottom-0 right-0 top-16 z-50 w-[min(20rem,calc(100vw-3rem))] border-l border-slate-200 bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+            style={{ backgroundColor: '#ffffff', backgroundImage: 'none', opacity: 1 }}
+            className={`fixed bottom-0 right-0 top-16 z-50 w-[min(20rem,calc(100vw-3rem))] border-l border-slate-200 !bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
               mobileNavOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-              <div className="grid gap-1">
-                {navItems.map((item) => (
-                  <button
-                    key={item.label}
-                    type="button"
-                    onClick={item.onClick}
-                    className="rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-800 transition hover:bg-brand-50 hover:text-brand-800"
-                  >
-                    {item.label}
-                  </button>
-                ))}
+            <div className="grid gap-1">
+              {navItems.map((item) => (
                 <button
+                  key={item.label}
                   type="button"
-                  onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
-                  className="mt-2 rounded-xl bg-brand-700 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-brand-800"
+                  onClick={item.onClick}
+                  className="rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-800 transition hover:bg-brand-50 hover:text-brand-800"
                 >
-                  Agendar mentoría
+                  {item.label}
                 </button>
-              </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
+                className="mt-2 rounded-xl bg-brand-700 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-brand-800"
+              >
+                Agendar mentoría
+              </button>
+            </div>
           </nav>
-        </header>
+        </>
       )}
       <div className="flex min-h-screen w-full flex-col gap-0 pt-0 lg:pt-0">
         <main className="-mt-4 flex-1">
