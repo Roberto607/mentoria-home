@@ -506,9 +506,17 @@ function App() {
           ) : view === 'plans' ? (
             <PlanSection currentUser={currentUser} onSelectPlan={handleSelectPlan} />
           ) : view === 'login' ? (
-            <LoginSection onLoginSuccess={handleLoginSuccess} onRegisterClick={() => setView('register')} />
+            <LoginSection
+              onLoginSuccess={handleLoginSuccess}
+              onRegisterClick={() => setView('register')}
+              onHomeClick={() => { setView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            />
           ) : view === 'register' ? (
-            <RegisterSection onRegisterSuccess={handleRegisterSuccess} onLoginClick={() => setView('login')} />
+            <RegisterSection
+              onRegisterSuccess={handleRegisterSuccess}
+              onLoginClick={() => setView('login')}
+              onHomeClick={() => { setView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            />
           ) : view === 'dashboard' ? (
             <DashboardSection currentUser={currentUser} pendingPlan={pendingPlan} onProceedToPlans={handleProceedToPlans} onLogout={handleLogout} />
           ) : view === 'userpanel' ? (

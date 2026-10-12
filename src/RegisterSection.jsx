@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { addUser, setCurrentUser, findUserByEmail } from './utils/auth';
 import mentorBackground from '../static/Mentor-background.jpg';
 
-function RegisterSection({ onRegisterSuccess, onLoginClick }) {
+function RegisterSection({ onRegisterSuccess, onLoginClick, onHomeClick }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,8 +44,7 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
       <div className="fixed inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
       <section className="auth-form-enter relative z-10 w-full max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:px-10 sm:py-10 lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
         <div className="mb-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-brand-600">Crear cuenta</p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Crea tu cuenta</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Crear cuenta</h2>
           <div className="mt-6 h-1 w-20 rounded-full bg-brand-500" />
         </div>
 
@@ -107,6 +106,13 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
             Inicia sesión
           </button>
         </div>
+        <button
+          type="button"
+          onClick={onHomeClick}
+          className="mt-5 block w-full text-center text-sm font-semibold text-brand-600 transition hover:text-brand-700"
+        >
+          Volver al inicio
+        </button>
       </section>
     </div>
   );
