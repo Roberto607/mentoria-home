@@ -193,36 +193,36 @@ function App() {
               </span>
             </button>
 
-            <nav aria-label="Navegación principal" className="hidden items-center gap-0.5 lg:flex">
+            <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-0.5 lg:flex">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   type="button"
                   onClick={item.onClick}
-                  className="whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800 xl:px-3 xl:text-sm"
+                  className="whitespace-nowrap rounded-full px-2 py-2 text-sm font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800 xl:px-3 xl:text-base"
                 >
                   {item.label}
                 </button>
               ))}
-              <div className="ml-5 flex shrink-0 gap-3 xl:ml-10 xl:gap-4">
+            </nav>
+
+            <div className="ml-auto flex shrink-0 items-center gap-3">
+              <div className="hidden shrink-0 items-center gap-3 xl:gap-4 lg:flex">
                 <button
                   type="button"
                   onClick={() => navigateFromNav('login')}
-                  className="whitespace-nowrap rounded-full border border-brand-700 px-3 py-2 text-xs font-semibold text-brand-800 transition hover:bg-brand-50 xl:px-4 xl:text-sm"
+                  className="whitespace-nowrap rounded-full border border-brand-700 px-3 py-2 text-sm font-semibold text-brand-800 transition hover:bg-brand-50 xl:px-4"
                 >
                   Iniciar sesión
                 </button>
                 <button
                   type="button"
                   onClick={() => navigateFromNav('register')}
-                  className="whitespace-nowrap rounded-full bg-brand-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-brand-800 xl:px-4 xl:text-sm"
+                  className="whitespace-nowrap rounded-full bg-brand-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-brand-800 xl:px-4"
                 >
                   Registrarse
                 </button>
               </div>
-            </nav>
-
-            <div className="flex shrink-0 items-center gap-2">
               <button
                 type="button"
                 onClick={() => setMobileNavOpen((isOpen) => !isOpen)}
