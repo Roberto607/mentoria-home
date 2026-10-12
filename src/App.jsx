@@ -37,6 +37,7 @@ function App() {
   const [activeCourseSection, setActiveCourseSection] = useState('course-audience');
   const [courseTarget, setCourseTarget] = useState(null);
   const [expandedModule, setExpandedModule] = useState(1);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     if (view !== 'home' && view !== 'program') return;
@@ -142,6 +143,23 @@ function App() {
     setView('plans');
   };
 
+  const navigateFromNav = (nextView) => {
+    setMobileNavOpen(false);
+    setCourseTarget(null);
+    setView(nextView);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const navItems = [
+    { label: 'Inicio', onClick: () => navigateFromNav('home') },
+    { label: 'Programa', onClick: () => { setMobileNavOpen(false); navigateToCourseSection('course-audience'); } },
+    { label: 'Sobre el mentor', onClick: () => navigateFromNav('about') },
+    { label: 'Planes', onClick: () => navigateFromNav('plans') },
+    { label: 'Artículos', onClick: () => navigateFromNav('articles') },
+    { label: 'Blog', onClick: () => navigateFromNav('blog') },
+    { label: 'Contacto', onClick: () => navigateFromNav('contact') },
+  ];
+
   const handleBookingSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -161,6 +179,85 @@ function App() {
 
   return (
     <div className={`min-h-screen ${pageBg} text-slate-900`}>
+      {!['login', 'register', 'userpanel', 'profile', 'mentorpanel', 'dashboard'].includes(view) && (
+        <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md">
+          <div className="mx-auto flex min-h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+            <button
+              type="button"
+              onClick={() => navigateFromNav('home')}
+              className="flex min-w-0 items-center gap-2.5 text-left sm:gap-3"
+              aria-label="Ir al inicio"
+            >
+              <img src={footerPortrait} alt="" className="h-9 w-9 shrink-0 rounded-full object-cover object-[50%_15%] ring-2 ring-brand-100 sm:h-10 sm:w-10" />
+              <span className="min-w-0">
+                <span className="block truncate text-xs font-bold leading-tight text-[#0b3760] sm:text-sm">Mentoría en investigación</span>
+                <span className="hidden text-[11px] text-slate-500 sm:block">Formación académica</span>
+              </span>
+            </button>
+
+            <nav aria-label="Navegación principal" className="hidden items-center gap-0.5 lg:flex">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={item.onClick}
+                  className="whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800 xl:px-3 xl:text-sm"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
+                className="hidden rounded-full bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-800 sm:inline-flex"
+              >
+                Agendar mentoría
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileNavOpen((isOpen) => !isOpen)}
+                aria-label={mobileNavOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+                aria-expanded={mobileNavOpen}
+                aria-controls="mobile-primary-navigation"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-[#0b3760] transition hover:bg-slate-50 lg:hidden"
+              >
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                  {mobileNavOpen
+                    ? <path strokeLinecap="round" d="m6 6 12 12M18 6 6 18" />
+                    : <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {mobileNavOpen && (
+            <nav id="mobile-primary-navigation" aria-label="Navegación principal" className="border-t border-slate-200 bg-white px-4 py-3 shadow-lg lg:hidden">
+              <div className="mx-auto grid max-w-7xl gap-1 sm:grid-cols-2">
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={item.onClick}
+                    className="rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:bg-brand-50 hover:text-brand-800"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
+                  className="mt-1 rounded-xl bg-brand-700 px-4 py-3 text-left text-sm font-semibold text-white transition hover:bg-brand-800 sm:col-span-2"
+                >
+                  Agendar mentoría
+                </button>
+              </div>
+            </nav>
+          )}
+        </header>
+      )}
       <div className="flex min-h-screen w-full flex-col gap-0 pt-0 lg:pt-0">
         <main className="-mt-4 flex-1">
           {view === 'home' || view === 'program' ? (
