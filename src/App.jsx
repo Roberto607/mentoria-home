@@ -5,7 +5,6 @@ import mentorPhoto from '../static/Mentor.png';
 import footerPortrait from '../static/foto.png';
 import researcherPhoto from '../static/estudiante 2.jpg';
 import ArticleSection from './ArticleSection';
-import PlanSection from './PlanSection';
 import LoginSection from './LoginSection';
 import RegisterSection from './RegisterSection';
 import DashboardSection from './DashboardSection';
@@ -15,6 +14,7 @@ import BlogSection from './BlogSection';
 import UserPanel from './components/UserPanel/UserPanel';
 import MentorPanel from './components/MentorPanel/MentorPanel';
 import GuideChat from './components/GuideChat';
+import { MERCADO_PAGO_CHECKOUT_URL } from './utils/payment';
 // ProfileSection removed — profile components cleaned up
 
 const courseModules = [
@@ -32,8 +32,7 @@ const courseModules = [
 function App() {
   const [view, setView] = useState('home');
   const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
-  const [pendingPlan, setPendingPlan] = useState(null);
-  const [bookingOpen, setBookingOpen] = useState(false);
+  const [programDetailsOpen, setProgramDetailsOpen] = useState(false);
   const [activeCourseSection, setActiveCourseSection] = useState('course-audience');
   const [courseTarget, setCourseTarget] = useState(null);
   const [expandedModule, setExpandedModule] = useState(1);
@@ -61,12 +60,12 @@ function App() {
   }, [view]);
 
   useEffect(() => {
-    if (!bookingOpen) return;
+    if (!programDetailsOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setBookingOpen(false);
+      if (event.key === 'Escape') setProgramDetailsOpen(false);
     };
     window.addEventListener('keydown', closeOnEscape);
 
@@ -74,7 +73,7 @@ function App() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', closeOnEscape);
     };
-  }, [bookingOpen]);
+  }, [programDetailsOpen]);
 
   useEffect(() => {
     if (view !== 'home' || !courseTarget) return;
@@ -121,26 +120,12 @@ function App() {
   const handleLogout = () => {
     authLogout();
     setCurrentUser(null);
-    setPendingPlan(null);
     setView('home');
   };
 
   const handleSaveUser = (user) => {
     authUpdateUser(user);
     setCurrentUser(user);
-  };
-
-  const handleSelectPlan = (planName) => {
-    setPendingPlan(planName);
-    if (!currentUser) {
-      setView('login');
-      return;
-    }
-    setView('dashboard');
-  };
-
-  const handleProceedToPlans = () => {
-    setView('plans');
   };
 
   const navigateFromNav = (nextView) => {
@@ -160,23 +145,6 @@ function App() {
   const visibleNavItems = view === 'home'
     ? navItems.filter((item) => item.label !== 'Inicio')
     : navItems;
-
-  const handleBookingSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const message = [
-      'Hola, quiero solicitar una mentoría.',
-      `Nombre: ${formData.get('name')}`,
-      `Correo: ${formData.get('email')}`,
-      `WhatsApp: ${formData.get('phone')}`,
-      `Ocupación: ${formData.get('occupation')}`,
-      `Apoyo que necesito: ${formData.get('service')}`,
-      `Sobre mi proyecto: ${formData.get('project')}`,
-    ].join('\n');
-
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-    setBookingOpen(false);
-  };
 
   return (
     <div className={`min-h-screen ${pageBg} text-slate-900`}>
@@ -309,8 +277,8 @@ function App() {
                       <p className="mt-3 max-w-2xl text-sm text-slate-200 sm:mt-4 sm:text-base lg:text-lg">Guía tu proyecto de investigación con el Dr. Juan Celestino y transforma tus resultados en conocimiento real.</p>
                     </div>
                     <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-                      <button type="button" onClick={() => setBookingOpen(true)} className="rounded-3xl bg-white px-5 py-3 text-sm font-semibold text-brand-800 shadow-lg shadow-black/20 transition duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:bg-slate-100 hover:shadow-xl sm:px-6">
-                        Agendar Mentoría
+                      <button type="button" onClick={() => setProgramDetailsOpen(true)} className="rounded-3xl bg-white px-5 py-3 text-sm font-semibold text-brand-800 shadow-lg shadow-black/20 transition duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:bg-slate-100 hover:shadow-xl sm:px-6">
+                        Comenzar mi mentoría
                       </button>
                       <button type="button" className="rounded-3xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-1 hover:bg-white/20 hover:shadow-lg">
                         Ver Metodologías
@@ -466,13 +434,13 @@ function App() {
                           <h2 className="mt-1 text-6xl font-black tracking-tight sm:text-7xl">USD 100</h2>
                           <p className="mt-3 text-base text-blue-100">Cien dólares estadounidenses · pago mensual</p>
                         </div>
-                        <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, tengo una consulta de disponibilidad de pago del programa de mentoría.')}`} target="_blank" rel="noreferrer" className="inline-flex w-fit items-center gap-3 border-b border-cyan-200 pb-2 font-semibold text-white transition hover:text-cyan-200">Consultar disponibilidad <span aria-hidden="true">↗</span></a>
+                        <button type="button" onClick={() => setProgramDetailsOpen(true)} className="inline-flex w-fit items-center gap-3 border-b border-cyan-200 pb-2 font-semibold text-white transition hover:text-cyan-200">Ver programa y pago <span aria-hidden="true">↗</span></button>
                       </div>
                       <div className="grid content-center gap-4 border-t border-white/20 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
                         <p className="text-sm font-semibold uppercase tracking-[0.15em] text-cyan-200">Medios de pago</p>
                         <div className="flex items-center justify-between gap-4 border-b border-white/20 py-4"><span>Transferencia bancaria</span><span className="text-sm text-blue-100">Mensual</span></div>
                         <div className="flex items-center justify-between gap-4 border-b border-white/20 py-4"><span>Mercado Pago</span><span className="text-sm text-blue-100">Mensual</span></div>
-                        <p className="text-sm leading-6 text-blue-100">Escríbenos para conocer el proceso de inscripción y las opciones disponibles.</p>
+                        <p className="text-sm leading-6 text-blue-100">El programa dura 12 semanas. Consulta el contenido completo y el estado del pago en Comenzar mentoría.</p>
                       </div>
                     </article>
 
@@ -506,8 +474,6 @@ function App() {
             <AboutSection />
           ) : view === 'mentorpanel' ? (
             <MentorPanel currentUser={currentUser} onLogout={handleLogout} />
-          ) : view === 'plans' ? (
-            <PlanSection currentUser={currentUser} onSelectPlan={handleSelectPlan} />
           ) : view === 'login' ? (
             <LoginSection
               onLoginSuccess={handleLoginSuccess}
@@ -521,7 +487,11 @@ function App() {
               onHomeClick={() => { setView('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             />
           ) : view === 'dashboard' ? (
-            <DashboardSection currentUser={currentUser} pendingPlan={pendingPlan} onProceedToPlans={handleProceedToPlans} onLogout={handleLogout} />
+            <DashboardSection
+              currentUser={currentUser}
+              onRequestMentorship={() => setProgramDetailsOpen(true)}
+              onLogout={handleLogout}
+            />
           ) : view === 'userpanel' ? (
             <UserPanel currentUser={currentUser} onLogout={handleLogout} onNavigate={(name) => setView(name)} onSaveUser={handleSaveUser} />
           ) : view === 'articles' ? (
@@ -533,56 +503,45 @@ function App() {
           ) : null}
         </main>
 
-        {bookingOpen && (
-          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-sm" onClick={(event) => { if (event.target === event.currentTarget) setBookingOpen(false); }}>
-            <section role="dialog" aria-modal="true" aria-labelledby="booking-title" className="booking-dialog-enter relative max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-y-auto rounded-[24px] bg-white p-6 shadow-2xl sm:p-8">
-              <button type="button" onClick={() => setBookingOpen(false)} aria-label="Cerrar formulario" className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">
+        {programDetailsOpen && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-sm" onClick={(event) => { if (event.target === event.currentTarget) setProgramDetailsOpen(false); }}>
+            <section role="dialog" aria-modal="true" aria-labelledby="program-details-title" className="booking-dialog-enter relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-[24px] bg-white p-6 shadow-2xl sm:p-8">
+              <button type="button" onClick={() => setProgramDetailsOpen(false)} aria-label="Cerrar detalles del programa" className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">Solicitud de mentoría</p>
-              <h2 id="booking-title" className="mt-3 pr-12 text-3xl font-bold text-slate-900">Cuéntame sobre tu proyecto</h2>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">Completa tus datos y qué tipo de acompañamiento necesitas. Prepararemos el mensaje para continuar por WhatsApp.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">Programa virtual · 12 semanas</p>
+              <h2 id="program-details-title" className="mt-3 pr-12 text-3xl font-bold text-slate-900">Mentoría en Investigación Científica</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Un recorrido formativo de nueve módulos con encuentros asincrónicos y sincrónicos, acompañamiento personalizado, materiales, plantillas, ejemplos prácticos, consultas, análisis de casos y certificado de participación.</p>
 
-              <form onSubmit={handleBookingSubmit} className="mt-7 grid gap-5 sm:grid-cols-2">
+              <ol className="mt-6 grid gap-3 sm:grid-cols-2">
+                {courseModules.map(([title, description], index) => (
+                  <li key={title} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">Módulo {index + 1}</p>
+                    <h3 className="mt-1 text-sm font-semibold text-slate-900">{title}</h3>
+                    <p className="mt-2 text-sm leading-5 text-slate-600">{description}</p>
+                  </li>
+                ))}
+              </ol>
+
+              <section aria-labelledby="program-payment-title" className="mt-6 rounded-2xl bg-[#0b3760] p-5 text-white sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-6">
                 <div>
-                  <label htmlFor="booking-name" className="mb-2 block text-sm font-semibold text-slate-800">Nombre completo</label>
-                  <input id="booking-name" name="name" type="text" autoComplete="name" defaultValue={currentUser?.name ?? ''} required autoFocus className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand-600 focus:ring-2 focus:ring-brand-100" />
+                  <h3 id="program-payment-title" className="text-sm font-semibold uppercase tracking-wide text-cyan-200">Inversión</h3>
+                  <p className="mt-1 text-3xl font-black">USD 100 <span className="text-base font-medium text-blue-100">/ mes</span></p>
+                  <p className="mt-1 text-sm text-blue-100">Pago mensual · Mercado Pago</p>
                 </div>
-                <div>
-                  <label htmlFor="booking-email" className="mb-2 block text-sm font-semibold text-slate-800">Correo electrónico</label>
-                  <input id="booking-email" name="email" type="email" autoComplete="email" defaultValue={currentUser?.email ?? ''} required className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand-600 focus:ring-2 focus:ring-brand-100" />
-                </div>
-                <div>
-                  <label htmlFor="booking-phone" className="mb-2 block text-sm font-semibold text-slate-800">WhatsApp / teléfono</label>
-                  <input id="booking-phone" name="phone" type="tel" autoComplete="tel" required className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand-600 focus:ring-2 focus:ring-brand-100" />
-                </div>
-                <div>
-                  <label htmlFor="booking-occupation" className="mb-2 block text-sm font-semibold text-slate-800">Ocupación</label>
-                  <input id="booking-occupation" name="occupation" type="text" autoComplete="organization-title" placeholder="Ej. estudiante, docente, investigador" required className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand-600 focus:ring-2 focus:ring-brand-100" />
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="booking-service" className="mb-2 block text-sm font-semibold text-slate-800">¿Qué apoyo necesitas?</label>
-                  <select id="booking-service" name="service" defaultValue="" required className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand-600 focus:ring-2 focus:ring-brand-100">
-                    <option value="" disabled>Selecciona un tipo de acompañamiento</option>
-                    <option>Dirección y acompañamiento de tesis</option>
-                    <option>Diseño metodológico</option>
-                    <option>Análisis de datos</option>
-                    <option>Escritura académica o artículo científico</option>
-                    <option>Preparación de defensa</option>
-                    <option>Otro tipo de asesoría</option>
-                  </select>
-                </div>
-                <div className="sm:col-span-2">
-                  <label htmlFor="booking-project" className="mb-2 block text-sm font-semibold text-slate-800">Cuéntame brevemente qué necesitas</label>
-                  <textarea id="booking-project" name="project" rows="4" required placeholder="Tema, etapa del proyecto y en qué te gustaría recibir apoyo..." className="w-full resize-y rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-100" />
-                </div>
-                <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:col-span-2 sm:flex-row sm:justify-end">
-                  <button type="button" onClick={() => setBookingOpen(false)} className="rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Cancelar</button>
-                  <button type="submit" className="rounded-full bg-emerald-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800">Continuar por WhatsApp</button>
-                </div>
-              </form>
+                {MERCADO_PAGO_CHECKOUT_URL ? (
+                  <a href={MERCADO_PAGO_CHECKOUT_URL} target="_blank" rel="noreferrer" className="mt-4 inline-flex min-h-12 items-center justify-center rounded-full bg-cyan-100 px-6 py-3 text-sm font-semibold text-brand-950 transition hover:bg-white sm:mt-0">
+                    Pagar con Mercado Pago
+                  </a>
+                ) : (
+                  <button type="button" disabled className="mt-4 inline-flex min-h-12 cursor-not-allowed items-center justify-center rounded-full bg-white/15 px-6 py-3 text-sm font-semibold text-white/75 sm:mt-0">
+                    Pago en línea próximamente
+                  </button>
+                )}
+              </section>
+              {!MERCADO_PAGO_CHECKOUT_URL && <p className="mt-3 text-xs leading-5 text-slate-500">El enlace de pago de Mercado Pago todavía no está configurado. Se habilitará aquí cuando esté disponible.</p>}
             </section>
           </div>
         )}
@@ -630,7 +589,7 @@ function App() {
                 <div className="mt-4 space-y-3 text-sm">
                   <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="block break-words text-slate-200 transition hover:text-white">WhatsApp · {WHATSAPP_DISPLAY}</a>
                   <a href={`mailto:${CONTACT_EMAIL}`} className="block break-all text-slate-200 transition hover:text-white">{CONTACT_EMAIL}</a>
-                  <button type="button" onClick={() => setBookingOpen(true)} className="mt-3 inline-flex items-center gap-2 rounded-full bg-cyan-100 px-5 py-3 font-semibold text-brand-900 transition hover:-translate-y-0.5 hover:bg-white">Solicitar mentoría <span aria-hidden="true">↗</span></button>
+                  <button type="button" onClick={() => setProgramDetailsOpen(true)} className="mt-3 inline-flex items-center gap-2 rounded-full bg-cyan-100 px-5 py-3 font-semibold text-brand-900 transition hover:-translate-y-0.5 hover:bg-white">Comenzar mentoría <span aria-hidden="true">↗</span></button>
                 </div>
               </div>
             </div>
