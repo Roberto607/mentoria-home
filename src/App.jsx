@@ -152,9 +152,7 @@ function App() {
 
   const navItems = [
     { label: 'Inicio', onClick: () => navigateFromNav('home') },
-    { label: 'Programa', onClick: () => { setMobileNavOpen(false); navigateToCourseSection('course-audience'); } },
     { label: 'Sobre el mentor', onClick: () => navigateFromNav('about') },
-    { label: 'Planes', onClick: () => navigateFromNav('plans') },
     { label: 'Artículos', onClick: () => navigateFromNav('articles') },
     { label: 'Blog', onClick: () => navigateFromNav('blog') },
     { label: 'Contacto', onClick: () => navigateFromNav('contact') },
@@ -190,8 +188,8 @@ function App() {
             >
               <img src={footerPortrait} alt="" className="h-9 w-9 shrink-0 rounded-full object-cover object-[50%_15%] ring-2 ring-brand-100 sm:h-10 sm:w-10" />
               <span className="min-w-0">
-                <span className="block truncate text-xs font-bold leading-tight text-[#0b3760] sm:text-sm">Mentoría en investigación</span>
-                <span className="hidden text-[11px] text-slate-500 sm:block">Formación académica</span>
+                <span className="block truncate text-xs font-bold leading-tight text-[#0b3760] sm:text-sm">Dr. Juan Celestino</span>
+                <span className="hidden text-[11px] text-slate-500 sm:block">Mentor</span>
               </span>
             </button>
 
@@ -206,16 +204,25 @@ function App() {
                   {item.label}
                 </button>
               ))}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => navigateFromNav('login')}
+                  className="whitespace-nowrap rounded-full border border-brand-700 px-3 py-2 text-xs font-semibold text-brand-800 transition hover:bg-brand-50 xl:px-4 xl:text-sm"
+                >
+                  Iniciar sesión
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigateFromNav('register')}
+                  className="whitespace-nowrap rounded-full bg-brand-700 px-3 py-2 text-xs font-semibold text-white transition hover:bg-brand-800 xl:px-4 xl:text-sm"
+                >
+                  Registrarse
+                </button>
+              </div>
             </nav>
 
             <div className="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                onClick={() => { setMobileNavOpen(false); setBookingOpen(true); }}
-                className="hidden rounded-full bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-800 sm:inline-flex"
-              >
-                Agendar mentoría
-              </button>
               <button
                 type="button"
                 onClick={() => setMobileNavOpen((isOpen) => !isOpen)}
