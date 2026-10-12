@@ -227,7 +227,7 @@ function App() {
             aria-label="Navegación principal"
             aria-hidden={!mobileNavOpen}
             style={{ backgroundColor: '#ffffff', backgroundImage: 'none', opacity: 1 }}
-            className={`fixed right-0 top-16 z-50 max-h-[calc(100dvh-5rem)] w-[min(20rem,calc(100vw-3rem))] overflow-y-auto border-l border-slate-200 !bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+            className={`no-scrollbar fixed right-0 top-16 z-50 max-h-[calc(100dvh-5rem)] w-[min(20rem,calc(100vw-3rem))] overflow-y-auto border-l border-slate-200 !bg-white px-4 py-4 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
               mobileNavOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
@@ -505,7 +505,7 @@ function App() {
 
         {programDetailsOpen && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-sm" onClick={(event) => { if (event.target === event.currentTarget) setProgramDetailsOpen(false); }}>
-            <section role="dialog" aria-modal="true" aria-labelledby="program-details-title" className="booking-dialog-enter relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-[24px] bg-white p-6 shadow-2xl sm:p-8">
+            <section role="dialog" aria-modal="true" aria-labelledby="program-details-title" className="booking-dialog-enter no-scrollbar relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl overflow-y-auto rounded-[24px] bg-white p-6 shadow-2xl sm:p-8">
               <button type="button" onClick={() => setProgramDetailsOpen(false)} aria-label="Cerrar detalles del programa" className="absolute right-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 transition hover:bg-slate-200">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
