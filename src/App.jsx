@@ -255,7 +255,7 @@ function App() {
                     key={item.label}
                     type="button"
                     onClick={item.onClick}
-                    className="rounded-xl bg-white px-4 py-3 text-left text-sm font-semibold text-slate-800 transition hover:bg-brand-50 hover:text-brand-800"
+                    className="rounded-xl px-4 py-3 text-left text-sm font-semibold text-slate-800 transition hover:bg-brand-50 hover:text-brand-800"
                   >
                     {item.label}
                   </button>
