@@ -24,7 +24,7 @@ function LoginSection({ onLoginSuccess, onRegisterClick, onHomeClick }) {
       <img
         src={mentorBackground}
         alt="Dr. Juan Celestino, mentor en investigación científica"
-        className="fixed inset-0 -z-20 hidden h-full w-full object-cover object-center lg:block"
+        className="fixed inset-0 -z-20 hidden h-full w-full object-cover object-[center_35%] lg:block"
       />
       <div className="fixed inset-0 -z-10 hidden bg-slate-950/5 lg:block" />
       <section className="auth-form-enter relative z-10 w-full max-w-xl rounded-[28px] bg-white px-6 py-8 shadow-2xl shadow-slate-950/10 sm:px-10 sm:py-10 lg:bg-white/95 lg:backdrop-blur-sm xl:px-12">
