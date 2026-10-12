@@ -157,6 +157,9 @@ function App() {
     { label: 'Blog', onClick: () => navigateFromNav('blog') },
     { label: 'Contacto', onClick: () => navigateFromNav('contact') },
   ];
+  const visibleNavItems = view === 'home'
+    ? navItems.filter((item) => item.label !== 'Inicio')
+    : navItems;
 
   const handleBookingSubmit = (event) => {
     event.preventDefault();
@@ -194,7 +197,7 @@ function App() {
             </button>
 
             <nav aria-label="Navegación principal" className="hidden flex-1 items-center justify-center gap-2 xl:gap-3 lg:flex">
-              {navItems.map((item) => (
+              {visibleNavItems.map((item) => (
                 <button
                   key={item.label}
                   type="button"
@@ -261,7 +264,7 @@ function App() {
             }`}
           >
             <div className="grid gap-1">
-              {navItems.map((item) => (
+              {visibleNavItems.map((item) => (
                 <button
                   key={item.label}
                   type="button"
@@ -297,7 +300,7 @@ function App() {
             <>
               {view === 'home' && (
               <section className="relative min-h-[600px] overflow-hidden rounded-none bg-slate-950 shadow-soft sm:min-h-[540px] lg:min-h-[520px]">
-                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="absolute inset-0 h-full w-full object-cover object-[82%_5%] animate-slide-in-from-right sm:object-[72%_5%] lg:object-[55%_5%]" />
+                <img src={mentorPhoto} alt="Dr. Juan Celestino" className="absolute inset-0 h-full w-full object-cover object-[82%_5%] sm:object-[72%_5%] lg:object-[55%_5%]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-slate-950/10 sm:bg-gradient-to-r sm:from-slate-950/80 sm:via-slate-950/35 sm:to-transparent" />
                 <div className="relative z-10 flex min-h-[600px] items-end px-5 pb-8 pt-40 sm:min-h-[540px] sm:items-center sm:px-10 sm:py-16 lg:min-h-[520px]">
                   <div className="w-full space-y-5 sm:max-w-[58%] lg:max-w-xl">
