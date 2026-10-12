@@ -35,10 +35,10 @@ function RegisterSection({ onRegisterSuccess, onLoginClick }) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4 py-8 sm:px-6 sm:py-12">
-      <div className="grid w-full max-w-6xl overflow-hidden rounded-[32px] bg-white shadow-2xl shadow-slate-900/20 lg:min-h-[700px] lg:grid-cols-2">
+    <div className="min-h-screen bg-slate-100">
+      <div className="grid min-h-screen w-full overflow-hidden bg-white lg:grid-cols-2">
         <div className="relative min-h-48 overflow-hidden bg-slate-900 sm:min-h-64 lg:min-h-full">
-          <img src={mentorPhoto} alt="Dr. Juan Celestino, mentor en investigación científica" className="absolute inset-0 h-full w-full object-cover object-[55%_20%]" />
+          <img src={mentorPhoto} alt="Dr. Juan Celestino, mentor en investigación científica" className="absolute inset-0 h-full w-full object-cover object-[70%_20%]" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent lg:bg-gradient-to-r lg:from-slate-950/10 lg:via-slate-950/25 lg:to-slate-950/75" />
           <div className="absolute inset-x-6 bottom-5 text-white sm:inset-x-8 sm:bottom-7 lg:inset-x-10 lg:bottom-10">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200 sm:text-sm">Mentoría en investigación científica</p>
