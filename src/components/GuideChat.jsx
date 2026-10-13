@@ -146,7 +146,7 @@ function GuideChat() {
             </button>
           </header>
 
-          <div ref={conversationRef} aria-live="polite" className="flex-1 space-y-3 overflow-y-auto bg-slate-50 p-3 sm:p-4">
+          <div ref={conversationRef} aria-live="polite" className="no-scrollbar flex-1 space-y-3 overflow-y-auto bg-slate-50 p-3 sm:p-4">
             {messages.map((message, index) => (
               <p
                 key={`${message.role}-${index}`}
